@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MotoShop - Catálogo de Motocicletas</title>
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset y estilos base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+           
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .section-description {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            color: #666;
+        }
+
+        /* Botones */
+        .btn {
+            display: inline-block;
+            background-color: #3b82f6;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #2563eb;
+            transform: translateY(-2px);
+        }
+
+        .link {
+            color: #3b82f6;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .link:hover {
+            color: #2563eb;
+            text-decoration: underline;
+        }
+
+        /* Header */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo a {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #3b82f6;
+        }
+
+        .menu {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .menu a {
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .menu a:hover, .menu a.active {
+            color: #3b82f6;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 70vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://www.formulamoto.es/wp-content/uploads/2022/06/23MY_Ninja_400_SM_img_03.jpg') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            color: white;
+            text-align: left;
+        }
+
+        .hero-content {
+            max-width: 600px;
+            margin-left: 5%;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        /* Categorías */
+        .categorias {
+            padding: 5rem 0;
+            background-color: #f1f5f9;
+        }
+
+        .categoria-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .categoria-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .categoria-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .categoria-img {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .categoria-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .categoria-card:hover .categoria-img img {
+            transform: scale(1.05);
+        }
+
+        .categoria-info {
+            padding: 1.5rem;
+        }
+
+        .categoria-info h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .categoria-info p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        /* Catálogo */
+        .catalogo {
+            padding: 5rem 0;
+        }
+
+        .filtros {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .filtro-btn {
+            background-color: #f1f5f9;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .filtro-btn:hover, .filtro-btn.active {
+            background-color: #3b82f6;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .moto-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .moto-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .moto-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .moto-img {
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .moto-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .moto-card:hover .moto-img img {
+            transform: scale(1.05);
+        }
+
+        .moto-categoria {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #3b82f6;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .moto-info {
+            padding: 1.5rem;
+        }
+
+        .moto-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.5rem;
+        }
+
+        .moto-title h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .moto-title p {
+            color: #666;
+            font-size: 0.875rem;
+        }
+
+        .moto-price {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #3b82f6;
+        }
+
+        .moto-description {
+            color: #666;
+            margin-bottom: 1rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .moto-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .moto-actions button {
+            background-color: transparent;
+            border: 1px solid #ddd;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+        }
+
+        .moto-actions button:hover {
+            border-color: #3b82f6;
+            color: #3b82f6;
+            transform: translateY(-2px);
+        }
+
+        /* Testimonios */
+        .testimonios {
+            padding: 5rem 0;
+            background-color: #f1f5f9;
+        }
+
+        .testimonio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .testimonio-card {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .cliente-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .cliente-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #ddd;
+            margin-right: 1rem;
+        }
+
+        .cliente-info h4 {
+            font-weight: 600;
+        }
+
+        .cliente-info p {
+            color: #666;
+            font-size: 0.875rem;
+        }
+
+        .testimonio-texto {
+            color: #555;
+            font-style: italic;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #1f2937;
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-col h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-col h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: #e5e7eb;
+        }
+
+        .footer-col p {
+            color: #9ca3af;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: #374151;
+            border-radius: 50%;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .social-links a:hover {
+            background-color: #3b82f6;
+            transform: translateY(-2px);
+        }
+
+        .footer-col ul li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-col ul li a {
+            color: #9ca3af;
+            transition: color 0.3s;
+        }
+
+        .footer-col ul li a:hover {
+            color: white;
+        }
+
+        .contacto-info li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .contacto-info i {
+            color: #3b82f6;
+            margin-top: 0.25rem;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #374151;
+            color: #9ca3af;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 10% auto;
+            padding: 2rem;
+            border-radius: 8px;
+            max-width: 800px;
+            position: relative;
+            animation: modalFadeIn 0.3s;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .close-modal:hover {
+            transform: rotate(90deg);
+        }
+
+        .modal-img {
+            height: 300px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .modal-title {
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-subtitle {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-description {
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-specs {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .spec-item {
+            background-color: #f1f5f9;
+            padding: 0.75rem;
+            border-radius: 4px;
+        }
+
+        .spec-item span {
+            font-weight: 600;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #3b82f6;
+        }
+
+        /* WhatsApp Button */
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background-color: #25d366;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            z-index: 99;
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: pulse 2s infinite;
+        }
+
+        .whatsapp-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+            animation: none;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Animaciones */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .menu {
+                display: none;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                flex-direction: column;
+                padding: 1rem 0;
+                box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+                gap: 0;
+                transform: translateY(-10px);
+                opacity: 0;
+                transition: all 0.3s ease-in-out;
+            }
+
+            .menu.active {
+                display: flex;
+                transform: translateY(0);
+                opacity: 1;
+            }
+
+            .menu li {
+                width: 100%;
+            }
+
+            .menu a {
+                display: block;
+                padding: 1rem 2rem;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .hero {
+                text-align: center;
+                padding: 0 1rem;
+            }
+
+            .hero-content {
+                margin: 0 auto;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .modal-content {
+                margin: 20% auto;
+                padding: 1.5rem;
+            }
+
+            .modal-specs {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-footer {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .modal-price {
+                align-self: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">MotoShop</a>
+            </div>
+            <nav>
+                <ul class="menu">
+                    <li><a href="#" class="active">Inicio</a></li>
+                    <li><a href="catalogo.html">Catálogo</a></li>
+                    <li><a href="nosotros.html">Nosotros</a></li>
+                    
+                    <li><a href="#">Contacto</a></li>
+                </ul>
+            </nav>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Encuentra tu moto ideal</h1>
+            <p>Explora nuestro catálogo de motocicletas de alta calidad para todos los estilos y necesidades</p>
+            <a href="#catalogo" class="btn">Ver Catálogo</a>
+        </div>
+    </section>
+
+    <!-- Categorías -->
+    <section class="categorias">
+        <div class="container">
+            <h2 class="section-title">Categorías Destacadas</h2>
+            <div class="categoria-grid">
+                <div class="categoria-card">
+                    <div class="categoria-img">
+                        <img src="https://i.pinimg.com/736x/8c/43/30/8c4330e00f00dea2adcdcc3154641a21.jpg" alt="Deportivas">
+                    </div>
+                    <div class="categoria-info">
+                        <h3>Deportivas</h3>
+                        <p>Velocidad y adrenalina en cada curva</p>
+                        <a href="#" class="link">Explorar →</a>
+                    </div>
+                </div>
+                <div class="categoria-card">
+                    <div class="categoria-img">
+                        <img src="https://i.pinimg.com/736x/91/b1/97/91b1978ea130ac56eb7fe9c45f67babd.jpg" alt="Touring">
+                    </div>
+                    <div class="categoria-info">
+                        <h3>Touring</h3>
+                        <p>Perfectas para largos viajes con máximo confort</p>
+                        <a href="#" class="link">Explorar →</a>
+                    </div>
+                </div>
+                <div class="categoria-card">
+                    <div class="categoria-img">
+                        <img src="https://i.pinimg.com/736x/97/18/34/971834a19b5f9181f59ae5192cdb46e6.jpg" alt="Urbanas">
+                    </div>
+                    <div class="categoria-info">
+                        <h3>Urbanas</h3>
+                        <p>Ágiles y económicas para el día a día</p>
+                        <a href="#" class="link">Explorar →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Catálogo -->
+    <section id="catalogo" class="catalogo">
+        <div class="container">
+            <h2 class="section-title">Nuestro Catálogo</h2>
+            <p class="section-description">Descubre nuestra selección de motocicletas de las mejores marcas del mercado con la mejor calidad y precio</p>
+            
+            <div class="filtros">
+                <button class="filtro-btn active" data-categoria="todas">Todas</button>
+                <button class="filtro-btn" data-categoria="Deportiva">Deportivas</button>
+                <button class="filtro-btn" data-categoria="Naked">Naked</button>
+                <button class="filtro-btn" data-categoria="Trail">Trail</button>
+                <button class="filtro-btn" data-categoria="Touring">Touring</button>
+            </div>
+            
+            <div class="moto-grid" id="moto-grid">
+                <!-- Las tarjetas de motos se generarán con JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonios -->
+    <section class="testimonios">
+        <div class="container">
+            <h2 class="section-title">Lo que dicen nuestros clientes</h2>
+            <div class="testimonio-grid">
+                <div class="testimonio-card">
+                    <div class="cliente-info">
+                        <div class="cliente-img"></div>
+                        <div>
+                            <h4>Carlos Rodríguez</h4>
+                            <p>Compró una Yamaha MT-07</p>
+                        </div>
+                    </div>
+                    <p class="testimonio-texto">"Excelente servicio y asesoramiento. Me ayudaron a encontrar la moto perfecta para mis necesidades. Muy recomendable."</p>
+                </div>
+                <div class="testimonio-card">
+                    <div class="cliente-info">
+                        <div class="cliente-img"></div>
+                        <div>
+                            <h4>Laura Martínez</h4>
+                            <p>Compró una Honda CB500F</p>
+                        </div>
+                    </div>
+                    <p class="testimonio-texto">"Precios competitivos y motos en perfecto estado. El proceso de compra fue rápido y sin complicaciones."</p>
+                </div>
+                <div class="testimonio-card">
+                    <div class="cliente-info">
+                        <div class="cliente-img"></div>
+                        <div>
+                            <h4>Miguel Sánchez</h4>
+                            <p>Compró una Kawasaki Ninja 650</p>
+                        </div>
+                    </div>
+                    <p class="testimonio-texto">"Gran variedad de modelos y marcas. El personal es muy profesional y conocedor. Volveré a comprar aquí sin duda."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>MotoShop</h3>
+                    <p>Tu tienda especializada en motocicletas de alta calidad con el mejor servicio y asesoramiento personalizado.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Enlaces rápidos</h4>
+                    <ul>
+                        <li><a href="#">Inicio</a></li>
+                        <li><a href="#catalogo">Catálogo</a></li>
+                        <li><a href="#">Sobre nosotros</a></li>
+                        <li><a href="#">Financiación</a></li>
+                        <li><a href="#">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Categorías</h4>
+                    <ul>
+                        <li><a href="#">Deportivas</a></li>
+                        <li><a href="#">Naked</a></li>
+                        <li><a href="#">Trail</a></li>
+                        <li><a href="#">Touring</a></li>
+                        <li><a href="#">Custom</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contacto</h4>
+                    <ul class="contacto-info">
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Calle Principal 123, 28001 Madrid, España</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <a href="tel:+34912345678">+34 912 345 678</a>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:info@motoshop.com">info@motoshop.com</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span id="year"></span> MotoShop. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal de Detalles -->
+    <div id="moto-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div id="modal-details">
+                <!-- Contenido del modal generado con JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Botón de WhatsApp -->
+    <a href="#" id="whatsapp-btn" class="whatsapp-btn">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script>
+        // Datos de las motocicletas
+        const motos = [
+            {
+                id: 1,
+                nombre: "Yamaha MT-07",
+                marca: "Yamaha",
+                modelo: "MT-07",
+                precio: 7299,
+                año: 2023,
+                categoria: "Naked",
+                imagen: "https://kitdeco-moto.fr/wp-content/uploads/2022/09/kit-deco-yamaha-mt-07-factory-cyan-1024x819.jpg",
+                descripcion: "La Yamaha MT-07 es una motocicleta naked de cilindrada media con un motor bicilíndrico en paralelo de 689 cc. Ofrece un rendimiento emocionante con un par motor abundante y una conducción ágil.",
+                especificaciones: {
+                    motor: "689 cc, 2 cilindros",
+                    potencia: "73.4 CV / 9000 rpm",
+                    transmision: "6 velocidades",
+                    peso: "184 kg"
+                }
+            },
+            {
+                id: 2,
+                nombre: "Honda CB650R",
+                marca: "Honda",
+                modelo: "CB650R",
+                precio: 8799,
+                año: 2023,
+                categoria: "Naked",
+                imagen: "https://m.media-amazon.com/images/I/71WxdFY-ObL._AC_UF894,1000_QL80_.jpg",
+                descripcion: "La Honda CB650R es una naked de cilindrada media con un motor tetracilíndrico en línea de 649 cc. Combina un estilo neo-retro con tecnología moderna y ofrece un rendimiento equilibrado.",
+                especificaciones: {
+                    motor: "649 cc, 4 cilindros",
+                    potencia: "95 CV / 12000 rpm",
+                    transmision: "6 velocidades",
+                    peso: "202 kg"
+                }
+            },
+            {
+                id: 3,
+                nombre: "Kawasaki Ninja 650",
+                marca: "Kawasaki",
+                modelo: "Ninja 650",
+                precio: 7699,
+                año: 2023,
+                categoria: "Deportiva",
+                imagen: "https://womanrider.com/wp-content/uploads/2016/11/17_EX650K_OG1_RS_OR.high_.jpg",
+                descripcion: "La Kawasaki Ninja 650 es una motocicleta deportiva de cilindrada media con un motor bicilíndrico en paralelo de 649 cc. Ofrece un buen equilibrio entre rendimiento deportivo y comodidad para el uso diario.",
+                especificaciones: {
+                    motor: "649 cc, 2 cilindros",
+                    potencia: "68 CV / 8000 rpm",
+                    transmision: "6 velocidades",
+                    peso: "196 kg"
+                }
+            },
+            {
+                id: 4,
+                nombre: "BMW R 1250 GS",
+                marca: "BMW",
+                modelo: "R 1250 GS",
+                precio: 18950,
+                año: 2023,
+                categoria: "Trail",
+                imagen: "https://soymotero.net/wp-content/uploads/2022/09/bmw_r1250gs_spirit_edition_06.jpg",
+                descripcion: "La BMW R 1250 GS es una motocicleta trail de alta gama con un motor boxer bicilíndrico de 1254 cc. Es conocida por su versatilidad, comodidad y capacidad para afrontar todo tipo de terrenos.",
+                especificaciones: {
+                    motor: "1254 cc, 2 cilindros boxer",
+                    potencia: "136 CV / 7750 rpm",
+                    transmision: "6 velocidades",
+                    peso: "249 kg"
+                }
+            },
+            {
+                id: 5,
+                nombre: "Ducati Panigale V4",
+                marca: "Ducati",
+                modelo: "Panigale V4",
+                precio: 23795,
+                año: 2023,
+                categoria: "Deportiva",
+                imagen: "https://cdpcdn.dx1app.com/products/USA/DU/2024/MC/SUPERSPORT/PANIGALE_V4/50/DUCATI_RED/2000000071.jpg",
+                descripcion: "La Ducati Panigale V4 es una superbike con un motor V4 de 1103 cc. Representa la máxima expresión de la tecnología deportiva de Ducati y ofrece un rendimiento excepcional en circuito.",
+                especificaciones: {
+                    motor: "1103 cc, 4 cilindros en V",
+                    potencia: "214 CV / 13000 rpm",
+                    transmision: "6 velocidades",
+                    peso: "198 kg"
+                }
+            },
+            {
+                id: 6,
+                nombre: "Harley-Davidson Street Glide",
+                marca: "Harley-Davidson",
+                modelo: "Street Glide",
+                precio: 26999,
+                año: 2023,
+                categoria: "Touring",
+                imagen: "https://www.harleydavidsonpavia.com/wp-content/uploads/2018/09/Street-glide-special-2019-harley-davidson-pavia.png",
+                descripcion: "La Harley-Davidson Street Glide es una motocicleta touring con un motor V-Twin Milwaukee-Eight de 1868 cc. Ofrece un estilo clásico americano con comodidad para largos viajes.",
+                especificaciones: {
+                    motor: "1868 cc, V-Twin",
+                    potencia: "93 CV / 5020 rpm",
+                    transmision: "6 velocidades",
+                    peso: "376 kg"
+                }
+            }
+        ];
+
+        // Función para formatear el precio
+        function formatearPrecio(precio) {
+            return new Intl.NumberFormat('es-ES', {
+                style: 'currency',
+                currency: 'EUR',
+                minimumFractionDigits: 0
+            }).format(precio);
+        }
+
+        // Cargar las motos en el grid
+        function cargarMotos(motosAMostrar = motos) {
+            const motoGrid = document.getElementById('moto-grid');
+            motoGrid.innerHTML = '';
+
+            motosAMostrar.forEach((moto, index) => {
+                const motoCard = document.createElement('div');
+                motoCard.className = 'moto-card';
+                motoCard.style.animationDelay = `${index * 0.1}s`;
+                motoCard.innerHTML = `
+                    <div class="moto-img">
+                        <img src="${moto.imagen}" alt="${moto.nombre}">
+                        <div class="moto-categoria">${moto.categoria}</div>
+                    </div>
+                    <div class="moto-info">
+                        <div class="moto-header">
+                            <div class="moto-title">
+                                <h3>${moto.nombre}</h3>
+                                <p>${moto.marca} ${moto.modelo} - ${moto.año}</p>
+                            </div>
+                            <div class="moto-price">${formatearPrecio(moto.precio)}</div>
+                        </div>
+                        <p class="moto-description">${moto.descripcion}</p>
+                        <div class="moto-actions">
+                            <button class="ver-detalles" data-id="${moto.id}">
+                                <i class="fas fa-info-circle"></i> Detalles
+                            </button>
+                            <a href="#" class="link">Ver más <i class="fas fa-chevron-right"></i></a>
+                        </div>
+                    </div>
+                `;
+                motoGrid.appendChild(motoCard);
+            });
+
+            // Agregar event listeners a los botones de detalles
+            document.querySelectorAll('.ver-detalles').forEach(btn => {
+                btn.addEventListener('click', mostrarDetalles);
+            });
+        }
+
+        // Filtrar motos por categoría
+        function filtrarMotos(categoria) {
+            if (categoria === 'todas') {
+                cargarMotos();
+            } else {
+                const motosFiltradas = motos.filter(moto => moto.categoria === categoria);
+                cargarMotos(motosFiltradas);
+            }
+        }
+
+        // Mostrar detalles de la moto en el modal
+        function mostrarDetalles(e) {
+            const motoId = parseInt(e.currentTarget.getAttribute('data-id'));
+            const moto = motos.find(m => m.id === motoId);
+            
+            const modalDetails = document.getElementById('modal-details');
+            modalDetails.innerHTML = `
+                <div class="modal-img">
+                    <img src="${moto.imagen}" alt="${moto.nombre}">
+                </div>
+                <h2 class="modal-title">${moto.nombre}</h2>
+                <p class="modal-subtitle">${moto.marca} ${moto.modelo} - ${moto.año}</p>
+                <p class="modal-description">${moto.descripcion}</p>
+                <h3>Especificaciones</h3>
+                <div class="modal-specs">
+                    <div class="spec-item">
+                        <span>Motor:</span> ${moto.especificaciones.motor}
+                    </div>
+                    <div class="spec-item">
+                        <span>Potencia:</span> ${moto.especificaciones.potencia}
+                    </div>
+                    <div class="spec-item">
+                        <span>Transmisión:</span> ${moto.especificaciones.transmision}
+                    </div>
+                    <div class="spec-item">
+                        <span>Peso:</span> ${moto.especificaciones.peso}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="modal-price">${formatearPrecio(moto.precio)}</div>
+                    <button class="btn">Consultar Disponibilidad</button>
+                </div>
+            `;
+            
+            const modal = document.getElementById('moto-modal');
+            modal.style.display = 'block';
+        }
+
+        // Cerrar el modal
+        document.querySelector('.close-modal').addEventListener('click', () => {
+            document.getElementById('moto-modal').style.display = 'none';
+        });
+
+        // Cerrar el modal al hacer clic fuera del contenido
+        window.addEventListener('click', (e) => {
+            const modal = document.getElementById('moto-modal');
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // Configurar el botón de WhatsApp
+        document.getElementById('whatsapp-btn').addEventListener('click', (e) => {
+            e.preventDefault();
+            const phoneNumber = '1234567890'; // Reemplazar con el número real
+            const message = 'Hola, estoy interesado en una motocicleta';
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        });
+
+        // Configurar los botones de filtro
+        document.querySelectorAll('.filtro-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                filtrarMotos(btn.getAttribute('data-categoria'));
+            });
+        });
+
+        // Configurar el menú móvil
+        document.querySelector('.menu-toggle').addEventListener('click', () => {
+            document.querySelector('.menu').classList.toggle('active');
+        });
+
+        // Actualizar el año en el footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Cargar las motos al iniciar
+        document.addEventListener('DOMContentLoaded', () => {
+            cargarMotos();
+        });
+    </script>
+</body>
+</html>

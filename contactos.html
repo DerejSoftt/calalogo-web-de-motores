@@ -1,0 +1,569 @@
+
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MotoShop - Contacto</title>
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset y estilos base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #333;
+        }
+
+        /* Header */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo a {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #3b82f6;
+        }
+
+        .menu {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .menu a {
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .menu a:hover, .menu a.active {
+            color: #3b82f6;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Estilos para la página de Contacto */
+        .contacto-hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://via.placeholder.com/1920x600') no-repeat center center/cover;
+            color: white;
+            text-align: center;
+            padding: 100px 0;
+        }
+
+        .contacto-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .contacto-hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contacto-content {
+            padding: 5rem 0;
+        }
+
+        .contacto-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .contacto-info, .contacto-form {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+        }
+
+        .contacto-info h3, .contacto-form h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #3b82f6;
+        }
+
+        .contacto-info ul {
+            margin-bottom: 1.5rem;
+        }
+
+        .contacto-info li {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .contacto-info i {
+            font-size: 1.2rem;
+            color: #3b82f6;
+            margin-right: 1rem;
+            width: 20px;
+        }
+
+        .contacto-form form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            height: 150px;
+        }
+
+        button[type="submit"] {
+            background-color: #3b82f6;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #2563eb;
+        }
+
+        /* Mapa */
+        .mapa {
+            margin-top: 3rem;
+        }
+
+        .mapa iframe {
+            width: 100%;
+            height: 400px;
+            border: none;
+            border-radius: 8px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #1f2937;
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-column ul li a {
+            color: #9ca3af;
+            transition: color 0.3s;
+        }
+
+        .footer-column ul li a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #3b82f6;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #374151;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .menu {
+                display: none;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                flex-direction: column;
+                padding: 1rem 0;
+                box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+                gap: 0;
+            }
+
+            .menu.active {
+                display: flex;
+            }
+
+            .menu li {
+                width: 100%;
+            }
+
+            .menu a {
+                display: block;
+                padding: 1rem 2rem;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .contacto-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .contacto-hero p {
+                font-size: 1rem;
+            }
+        }
+
+        /* Estilos para la sección de Sucursales */
+        .sucursales {
+            margin-top: 5rem;
+        }
+
+        .sucursales-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .sucursal-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .sucursal-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .sucursal-img {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .sucursal-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .sucursal-info {
+            padding: 1.5rem;
+        }
+
+        .sucursal-info h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: #3b82f6;
+        }
+
+        .sucursal-info p {
+            margin-bottom: 0.5rem;
+        }
+
+        .sucursal-info .btn {
+            display: inline-block;
+            background-color: #3b82f6;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-weight: 600;
+            margin-top: 1rem;
+            transition: background-color 0.3s;
+        }
+
+        .sucursal-info .btn:hover {
+            background-color: #2563eb;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">MotoShop</a>
+            </div>
+            <nav>
+                <ul class="menu">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="index.html#catalogo">Catálogo</a></li>
+                    <li><a href="nosotros.html">Nosotros</a></li>
+                   
+                    <li><a href="contacto.html" class="active">Contacto</a></li>
+                </ul>
+            </nav>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="contacto-hero">
+        <div class="container">
+            <h1>Contacta con Nosotros</h1>
+            <p>Estamos aquí para ayudarte. No dudes en ponerte en contacto con nosotros para cualquier consulta o información adicional.</p>
+        </div>
+    </section>
+
+    <!-- Contenido Principal -->
+    <section class="contacto-content">
+        <div class="container">
+            <h2 class="section-title">Ponte en Contacto</h2>
+            <div class="contacto-grid">
+                <div class="contacto-info">
+                    <h3>Información de Contacto</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> Calle Principal 123, 28001 Madrid, España</li>
+                        <li><i class="fas fa-phone"></i> +34 912 345 678</li>
+                        <li><i class="fas fa-envelope"></i> info@motoshop.com</li>
+                        <li><i class="fas fa-clock"></i> Lunes a Viernes: 9:00 - 20:00</li>
+                        <li><i class="fas fa-clock"></i> Sábados: 10:00 - 14:00</li>
+                    </ul>
+                    <h3>Síguenos en Redes Sociales</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="contacto-form">
+                    <h3>Envíanos un Mensaje</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" id="nombre" name="nombre" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="telefono">Teléfono</label>
+                            <input type="tel" id="telefono" name="telefono">
+                        </div>
+                        <div class="form-group">
+                            <label for="mensaje">Mensaje</label>
+                            <textarea id="mensaje" name="mensaje" required></textarea>
+                        </div>
+                        <button type="submit">Enviar Mensaje</button>
+                    </form>
+                </div>
+            </div>
+            <div class="mapa">
+                <h3>Nuestra Ubicación</h3>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3037.5977638344!2d-3.7031746845856924!3d40.41889637936409!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd42287d6da3df33%3A0x6e7f3a3e30d1a251!2sPuerta%20del%20Sol%2C%20Madrid%2C%20Spain!5e0!3m2!1sen!2sus!4v1651234567890!5m2!1sen!2sus" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+            <div class="sucursales">
+                <h2 class="section-title">Nuestras Sucursales</h2>
+                <div class="sucursales-grid">
+                    <div class="sucursal-card">
+                        <div class="sucursal-img">
+                            <img src="https://via.placeholder.com/400x200" alt="Sucursal Madrid Centro">
+                        </div>
+                        <div class="sucursal-info">
+                            <h3>Madrid Centro</h3>
+                            <p><i class="fas fa-map-marker-alt"></i> Calle Principal 123, 28001 Madrid</p>
+                            <p><i class="fas fa-phone"></i> +34 912 345 678</p>
+                            <p><i class="fas fa-clock"></i> Lun-Vie: 9:00-20:00, Sáb: 10:00-14:00</p>
+                            <a href="#" class="btn">Ver en Mapa</a>
+                        </div>
+                    </div>
+                    <div class="sucursal-card">
+                        <div class="sucursal-img">
+                            <img src="https://via.placeholder.com/400x200" alt="Sucursal Barcelona">
+                        </div>
+                        <div class="sucursal-info">
+                            <h3>Barcelona</h3>
+                            <p><i class="fas fa-map-marker-alt"></i> Avenida Diagonal 456, 08006 Barcelona</p>
+                            <p><i class="fas fa-phone"></i> +34 933 456 789</p>
+                            <p><i class="fas fa-clock"></i> Lun-Vie: 9:00-20:00, Sáb: 10:00-14:00</p>
+                            <a href="#" class="btn">Ver en Mapa</a>
+                        </div>
+                    </div>
+                    <div class="sucursal-card">
+                        <div class="sucursal-img">
+                            <img src="https://via.placeholder.com/400x200" alt="Sucursal Valencia">
+                        </div>
+                        <div class="sucursal-info">
+                            <h3>Valencia</h3>
+                            <p><i class="fas fa-map-marker-alt"></i> Calle de Colón 789, 46004 Valencia</p>
+                            <p><i class="fas fa-phone"></i> +34 962 345 678</p>
+                            <p><i class="fas fa-clock"></i> Lun-Vie: 9:00-20:00, Sáb: 10:00-14:00</p>
+                            <a href="#" class="btn">Ver en Mapa</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Enlaces Rápidos</h3>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="index.html#catalogo">Catálogo</a></li>
+                        <li><a href="nosotros.html">Sobre Nosotros</a></li>
+                        <li><a href="#">Financiación</a></li>
+                        <li><a href="contacto.html">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contacto</h3>
+                    <ul>
+                        <li>Calle Principal 123, 28001 Madrid</li>
+                        <li>Teléfono: +34 912 345 678</li>
+                        <li>Email: info@motoshop.com</li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Síguenos</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 MotoShop. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Configurar el menú móvil
+        document.querySelector('.menu-toggle').addEventListener('click', () => {
+            document.querySelector('.menu').classList.toggle('active');
+        });
+
+        // Manejar el envío del formulario
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Aquí puedes agregar la lógica para enviar el formulario, por ejemplo, usando AJAX
+            alert('Gracias por tu mensaje. Nos pondremos en contacto contigo pronto.');
+            this.reset();
+        });
+
+        // Función para abrir Google Maps con la dirección de la sucursal
+        function abrirMapa(direccion) {
+            const url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(direccion)}`;
+            window.open(url, '_blank');
+        }
+
+        // Añadir event listeners a los botones "Ver en Mapa"
+        document.querySelectorAll('.sucursal-info .btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const direccion = this.closest('.sucursal-info').querySelector('p:first-child').textContent.split(': ')[1];
+                abrirMapa(direccion);
+            });
+        });
+    </script>
+</body>
+</html>
+
